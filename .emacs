@@ -22,7 +22,12 @@
 ;; (global-set-key (kbd "M-[") "]")
 ;; (global-set-key (kbd "M-{") "}")
 
-(custom-set-variables
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
@@ -32,7 +37,8 @@
    '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
  '(display-line-numbers 'visual)
  '(enable-recursive-minibuffers t)
- '(package-selected-packages '(typescript-mode web-mode gruber-darker-theme)))
+ '(package-selected-packages
+   '(multiple-cursors magit typescript-mode web-mode gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
