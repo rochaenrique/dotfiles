@@ -5,8 +5,8 @@
 (fido-mode 1)
 (ido-everywhere 1)
 
-(global-set-key (kbd "M-[") "]")
-(global-set-key (kbd "M-{") "}")
+;; (global-set-key (kbd "M-[") "]")
+;; (global-set-key (kbd "M-{") "}")
 
 (setq-default inhibit-splash-screen t
 	      tab-width 4)
@@ -27,6 +27,12 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
+;; matlab
+(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
+(setq matlab-shell-command "/Applications/MATLAB_R2024b.app/bin/matlab")
+(setq matlab-shell-command-switches (list "-nodesktop"))
+
+(setq dired-dwim-target t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -37,10 +43,12 @@
    '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
  '(display-line-numbers 'visual)
  '(enable-recursive-minibuffers t)
- '(package-selected-packages '(web-mode multiple-cursors magit gruber-darker-theme)))
+ '(package-selected-packages
+   '(markdown-mode pyvenv lua-mode matlab-mode web-mode multiple-cursors magit gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'scroll-left 'disabled nil)

@@ -85,29 +85,8 @@ source $ZSH/oh-my-zsh.sh
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='emacs'
 fi
-
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
-
-# keep ctrl-p and ctrl-n for history browsing
-bindkey ^p up-history
-bindkey ^n down-history
-
-# history search
-bindkey "^R" history-incremental-search-backward
-
-# edit command in buffer (command 'fc' will do almost the same)
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-# Create new tmux session
-bindkey -s '^o' 'tmux new -t$(basename `pwd`)\r'
-
-# Attach to tmux session
-bindkey -s '^s' 'tmux attach\r'
 
 # Compilation flags
 # export ARCHFLAGS="-arch $(uname -m)"
@@ -124,8 +103,8 @@ bindkey -s '^s' 'tmux attach\r'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# oh-my-zsh Plugins
-plugins=(vi-mode)
+plugins=(emacs)
 
 # Syntax hightlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PATH="/opt/homebrew/opt/llvm@18/bin:$PATH"
