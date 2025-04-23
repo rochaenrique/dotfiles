@@ -32,6 +32,12 @@
 (setq matlab-shell-command "/Applications/MATLAB_R2024b.app/bin/matlab")
 (setq matlab-shell-command-switches (list "-nodesktop"))
 
+(defun open-iterm()
+  (interactive)
+  (let ((dir (expand-file-name default-directory)))
+	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir)))
+  )
+
 (setq dired-dwim-target t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -44,7 +50,7 @@
  '(display-line-numbers 'visual)
  '(enable-recursive-minibuffers t)
  '(package-selected-packages
-   '(markdown-mode pyvenv lua-mode matlab-mode web-mode multiple-cursors magit gruber-darker-theme)))
+   '(swift-mode markdown-mode pyvenv lua-mode matlab-mode web-mode multiple-cursors magit gruber-darker-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
