@@ -35,8 +35,10 @@
 (defun open-iterm()
   (interactive)
   (let ((dir (expand-file-name default-directory)))
-	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir)))
+	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir) nil nil))
   )
+(global-set-key (kbd "C-c M-i") 'open-iterm)
+(global-set-key (kbd "C-c M-t") 'transpose-regions)
 
 (setq dired-dwim-target t)
 (custom-set-variables
