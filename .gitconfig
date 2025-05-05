@@ -1,0 +1,7 @@
+[user]
+	email = rochabenattienrique@gmail.com
+	name = Enrique Rocha Benatti
+[core]
+	editor = nvim
+[init]
+	defaultBranch = main
