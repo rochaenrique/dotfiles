@@ -81,7 +81,7 @@ automatically-unhide-macos-hidden-apps = true
     # - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
     #                   keypadMinus, keypadMultiply, keypadPlus
     # - Arrows.         left, down, up, right
-
+	
     # All possible modifiers: cmd, alt, ctrl, shift
 
     # All possible commands: https://nikitabobko.github.io/AeroSpace/commands
@@ -124,19 +124,25 @@ automatically-unhide-macos-hidden-apps = true
     cmd-shift-3 = 'move-node-to-workspace 3'
     cmd-shift-4 = 'move-node-to-workspace 4'
 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-    cmd-tab = 'workspace-back-and-forth' 
-    # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
-    cmd-shift-tab = 'move-workspace-to-monitor --wrap-around next'
-
     # See: https://nikitabobko.github.io/AeroSpace/commands#mode
     cmd-shift-y = 'mode service'
 
+    # See: https://nikitabobko.github.io/AeroSpace/commands#focus-monitor
+    cmd-backtick = 'focus-monitor --wrap-around next'
+	
+    # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-monitor
+    cmd-shift-backtick = 'move-node-to-monitor --wrap-around next'
+	
+	# See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
+    cmd-esc = 'move-workspace-to-monitor --wrap-around next'
 
-#a   cmd-cmd-h = [] # Disable "hide others"
-
-# 'service' binding mode declaration.
-# See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
+	# See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+[workspace-to-monitor-force-assignment]
+	1 = 'main'
+	4 = 'secondary'
+	
+    # 'service' binding mode declaration.
+    # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 [mode.service.binding]
     esc = ['reload-config', 'mode main']
     r = ['flatten-workspace-tree', 'mode main'] # reset layout
@@ -146,11 +152,11 @@ automatically-unhide-macos-hidden-apps = true
     # sticky is not yet supported https://github.com/nikitabobko/AeroSpace/issues/2
     #s = ['layout sticky tiling', 'mode main']
 
-    cmd-shift-h = ['join-with left', 'mode main']
-    cmd-shift-j = ['join-with down', 'mode main']
-    cmd-shift-k = ['join-with up', 'mode main']
-    cmd-shift-l = ['join-with right', 'mode main']
+    cmd-shift-j = ['join-with left', 'mode main']
+    cmd-shift-k = ['join-with down', 'mode main']
+    cmd-shift-l = ['join-with up', 'mode main']
+    cmd-shift-semicolon = ['join-with right', 'mode main']
 
-    down = 'volume down'
-    up = 'volume up'
-    shift-down = ['volume set 0', 'mode main']
+    # down = 'volume down'
+    # up = 'volume up'
+    # shift-down = ['volume set 0', 'mode main']

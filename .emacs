@@ -8,11 +8,12 @@
 ;; (global-set-key (kbd "M-[") "]")
 ;; (global-set-key (kbd "M-{") "}")
 
-(setq-default inhibit-splash-screen t
-	      tab-width 4)
+(setq-default
+ inhibit-splash-screen t
+ tab-width 4)
 
 (setq default-frame-alist
-      '((height . 30) (width . 100) (top . 10) (left . 175) (font . "Iosevka-20")))
+      '((font . "Iosevka-20")))
 
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
@@ -25,7 +26,7 @@
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 
 ;; matlab
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
@@ -37,8 +38,8 @@
   (let ((dir (expand-file-name default-directory)))
 	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir) nil nil))
   )
-(global-set-key (kbd "C-c M-i") 'open-iterm)
-(global-set-key (kbd "C-c M-t") 'transpose-regions)
+(global-set-key (kbd "C-c TAB") 'open-iterm)
+(global-set-key (kbd "C-c C-t") 'transpose-regions)
 
 (setq dired-dwim-target t)
 (custom-set-variables
@@ -60,3 +61,4 @@
  ;; If there is more than one, they won't work right.
  )
 (put 'scroll-left 'disabled nil)
+(put 'narrow-to-region 'disabled nil)
