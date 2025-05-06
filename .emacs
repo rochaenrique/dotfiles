@@ -5,8 +5,23 @@
 (fido-mode 1)
 (ido-everywhere 1)
 
-;; (global-set-key (kbd "M-[") "]")
-;; (global-set-key (kbd "M-{") "}")
+;; linux specific
+(global-set-key (kbd "M-[") "]")
+(global-set-key (kbd "M-{") "}")
+
+;; mac specific 
+
+;; matlab
+;; (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
+;; (setq matlab-shell-command "/Applications/MATLAB_R2024b.app/bin/matlab")
+;; (setq matlab-shell-command-switches (list "-nodesktop"))
+
+;; (defun open-iterm()
+;;   (interactive)
+;;   (let ((dir (expand-file-name default-directory)))
+;; 	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir) nil nil))
+;;   )
+;; (global-set-key (kbd "C-c TAB") 'open-iterm)
 
 (setq-default
  inhibit-splash-screen t
@@ -28,17 +43,6 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 
-;; matlab
-(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
-(setq matlab-shell-command "/Applications/MATLAB_R2024b.app/bin/matlab")
-(setq matlab-shell-command-switches (list "-nodesktop"))
-
-(defun open-iterm()
-  (interactive)
-  (let ((dir (expand-file-name default-directory)))
-	(async-shell-command (format "open %s -n -a /Applications/iTerm.app" dir) nil nil))
-  )
-(global-set-key (kbd "C-c TAB") 'open-iterm)
 (global-set-key (kbd "C-c C-t") 'transpose-regions)
 
 (setq dired-dwim-target t)
