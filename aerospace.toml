@@ -89,8 +89,8 @@ automatically-unhide-macos-hidden-apps = true
     # See: https://nikitabobko.github.io/AeroSpace/commands#exec-and-forget
     # You can uncomment the following lines to open up terminal with alt + enter shortcut
     # (like in i3)
-    alt-enter = 'exec-and-forget open -n /Applications/iTerm.app'
-    cmd-enter = 'exec-and-forget open -n /Applications/Emacs.app'
+    alt-enter = 'exec-and-forget open /Applications/iTerm.app'
+    cmd-enter = 'exec-and-forget /Applications/Firefox.app/Contents/MacOS/firefox --search $(~/dev/shower/shower -t input -hdQuick Firefox -m Insert search term)'
 	
     # See: https://nikitabobko.github.io/AeroSpace/commands#layout
     cmd-slash = 'layout tiles horizontal vertical'

@@ -107,4 +107,4 @@ plugins=(emacs)
 
 # Syntax hightlighting
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-export PATH="/opt/homebrew/opt/llvm@18/bin:$PATH"
+export PATH="$PATH:/opt/homebrew/opt/llvm@18/bin:$HOME/box/Odin"
