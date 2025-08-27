@@ -1,15 +1,11 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Default stuff
-export TERMINAL="iterm"
-export BROWSER="firefox"
+TERMINAL="ghostty"
+BROWSER="firefox"
+CATALINA_HOME=~/box/apache-tomcat-10.1.30
+CLASSPATH="$CLASSPATH:$CATALINA_HOME/lib/jsp-api.jar:$CATALINA_HOME/lib/servlet-api.jar"
+PATH="$PATH:/opt/homebrew/opt/llvm@20/bin"
+PATH="$PATH:$HOME/box/Odin"
+PATH="$PATH:$HOME/box/zig/build/stage3/bin"
+PATH="$PATH:$HOME/box/nasm-2.16.03-macosx/nasm-2.16.03/"
 
-# User things
-# export ZDOTDIR="$HOME/.config/zsh"
-
-# Tomcat and java stuff
-export CATALINA_HOME=~/box/apache-tomcat-10.1.30
-export CLASSPATH="$CLASSPATH:$CATALINA_HOME/lib/jsp-api.jar:$CATALINA_HOME/lib/servlet-api.jar"
-
-# source "/Users/enrique/box/emsdk/emsdk_env.sh"
-# export ~/box/archive/bin/yabai
