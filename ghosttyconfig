@@ -51,11 +51,3 @@ font-size = 24
 macos-option-as-alt = true
 macos-icon = holographic
 macos-titlebar-style = hidden
-
-keybind = ctrl+x>o=goto_split:previous
-keybind = ctrl+x>0=close_surface
-
-keybind = ctrl+x>2=new_split:down
-keybind = ctrl+x>3=new_split:right
-
-keybind = ctrl+x>5=new_window

@@ -4,11 +4,40 @@
 (ido-mode 1)
 (fido-mode 1)
 (ido-everywhere 1)
+(global-hl-line-mode 1)
+;; (setq transient-mark-mode nil)
+(setq imenu-flatten "annotation")
 
-(global-set-key (kbd "M-o M-p") 'windmove-up)
-(global-set-key (kbd "M-o M-b") 'windmove-left)
-(global-set-key (kbd "M-o M-f") 'windmove-right)
-(global-set-key (kbd "M-o M-n") 'windmove-down)
+(global-set-key (kbd "C-M-c") 'compile)
+(global-set-key (kbd "C-M-x") 'recompile)
+
+(global-set-key (kbd "M-{") 'backward-list)
+(global-set-key (kbd "M-}") 'forward-list)
+
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+
+(global-set-key (kbd "M-,") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-,") 'other-window)
+
+(global-set-key (kbd "M-o") 'switch-to-buffer)
+(global-set-key (kbd "M-S-o") 'switch-to-buffer-other-window)
+
+(global-set-key (kbd "C-o") 'find-file)
+(global-set-key (kbd "C-S-o") 'find-file-other-window)
+
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-SPC") 'exchange-point-and-mark)
+
+(global-set-key (kbd "C-q") 'query-replace)
+
+(global-set-key (kbd "M-c") 'delete-window)
+(global-set-key (kbd "C-c") 'delete-other-windows)
+
+
+(add-hook 'python-mode-hook
+          (lambda()
+            (local-unset-key (kbd "C-M-x"))))
 
 (setq-default
  inhibit-splash-screen t
@@ -16,50 +45,89 @@
  c-offset 4
  c-style "awk")
 
-(setq default-frame-alist
-      '((font . "Iosevka-20")
-		(fullscreen . maximized)))
-
-(put 'upcase-region 'disabled nil)
-(put 'downcase-region 'disabled nil)
+(add-to-list 'default-frame-alist '(undecorated . t))
+(add-to-list 'default-frame-alist '(undecorated-round . t))
+(add-to-list 'default-frame-alist '(font . "Iosevka-20"))
 
 (add-to-list 'load-path "~/.emacs.d/custom")
 
-(global-set-key (kbd "C-c C-t") 'transpose-regions)
+(set-foreground-color "burlywood3")
+; (set-background-color "#121212")
+(set-background-color "#0A0A0A")
+; (set-background-color "#000000")
+(set-cursor-color "#40FF40")
+(set-face-background 'hl-line "#0000A8")
+(set-face-attribute 'region nil :background "#600060")
+
+(set-face-attribute 'default t :font "Iosevka-20")
+(set-face-attribute 'region nil :background nil :foreground nil :inverse-video nil)
+(set-face-attribute 'font-lock-builtin-face nil :foreground "#000000") 
+(set-face-attribute 'font-lock-builtin-face nil :foreground "#DAB98F") 
+(set-face-attribute 'font-lock-comment-face nil :foreground "gray50")
+(set-face-attribute 'font-lock-doc-face nil :foreground "gray50")
+(set-face-attribute 'font-lock-constant-face nil :foreground "olive drab")
+(set-face-attribute 'font-lock-function-name-face nil :foreground "burlywood3")
+(set-face-attribute 'font-lock-keyword-face nil :foreground "DarkGoldenrod3")
+(set-face-attribute 'font-lock-string-face nil :foreground "olive drab")
+(set-face-attribute 'font-lock-type-face nil :foreground "olive drab")
+(set-face-attribute 'font-lock-variable-name-face nil :foreground "burlywood3")
+(load "dired")
+(set-face-attribute 'dired-directory nil :foreground "DarkGoldenrod3")
 
 (setq dired-dwim-target t)
 
+(defun set-exec-path-from-shell-PATH ()
+  (let ((path-from-shell 
+      (replace-regexp-in-string "[[:space:]\n]*$" "" 
+        (shell-command-to-string "$SHELL -l -c 'echo $PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
+(when (equal system-type 'darwin) (set-exec-path-from-shell-PATH))
+
+(add-to-list 'auto-mode-alist '("\\.env\\'" . sh-mode))
+
 ;; Packages
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+
 (require 'odin-mode)
-(use-package company)                        
-(use-package gruber-darker-theme)            
+;; (use-package company)                        
+;; (use-package gruber-darker-theme)            
 (use-package magit)                          
 (use-package markdown-mode)                  
 (use-package matlab-mode)                    
 (use-package multiple-cursors)               
 (use-package pyvenv)                         
-(use-package web-mode)                       
+(use-package web-mode)
 
 ;; company
-(add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay nil)
-(global-set-key (kbd "M-/") 'company-complete) ;; This overwrites emacs default completion
+;; (add-hook 'after-init-hook 'global-company-mode)
+;; (setq company-idle-delay nil)
+;; (global-set-key (kbd "M-n") 'company-complete) ;; Overwrites emacs default completion
 
 ;; multiple-cursors
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C->") 'mc/mark-all-like-this)
 
 ;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.[jt]sx\\'" . web-mode))
 
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; linux specific
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(global-set-key (kbd "M-[") "]")
-(global-set-key (kbd "M-{") "}")
+(add-hook 'web-mode-hook
+          (lambda ()
+            (setq web-mode-markup-indent-offset 2)
+            (setq web-mode-css-indent-offset 2)   
+            (setq web-mode-code-indent-offset 2)  
+            (setq indent-tabs-mode nil)
+            (setq tab-width 2)))
+
+(add-hook 'typescript-mode-hook
+          (lambda ()
+			(setq typescript-indent-level 2)			
+            (setq indent-tabs-mode nil)
+            (setq tab-width 2)))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mac specific
@@ -82,6 +150,17 @@
 	  (insert header-str)
 	  )))
 
+(defun java-main-func ()
+  (interactive)
+  (insert "public static void main(String[] args) {\n\n}")
+  (c-indent-defun)
+  (previous-line)
+  (c-indent-line-or-region)
+  )
+
+(defalias 'java-getter
+   (kmacro "C-e M-a p u b l i c SPC C-e M-b C-M-SPC M-w g e t C-SPC C-f C-x C-u M-f ( ) C-e <backspace> SPC { S-SPC <return> } C-p C-e <return> r e t u r n SPC t h i s . C-y ; C-n <return> C-p C-p C-p"))
+
 (defun query-replace-sexp-at-point ()
   (interactive)
   (backward-word 1)
@@ -93,10 +172,10 @@
 	(query-replace sexp replacement)))
 (global-set-key (kbd "C-M-5") 'query-replace-sexp-at-point)
 
-(defun ator-dired ()
-  (interactive)
-  (dired "~/dev/ator/ator/Assets/Scripts"))
-(global-set-key (kbd "C-x C-a") 'ator-dired)
+;; (defun ator-dired ()
+;;   (interactive)
+;;   (dired "~/dev/ator/ator/Assets/Scripts"))
+;; (global-set-key (kbd "C-x C-a") 'ator-dired)
 
 (defun check-running-p (buffer-name)
   (let ((proc (get-buffer-process buffer-name)))
@@ -120,7 +199,7 @@
 (interactive)
 (let ((dir (expand-file-name default-directory)))
 	(async-shell-command (format "open %s -a /Applications/Ghostty.app" dir) nil nil)))
-(global-set-key (kbd "C-c C-<tab>") 'open-term)
+(global-set-key (kbd "C-x C-<tab>") 'open-term)
 
 (defvar unity-project-dir "~/dev/ator/ator")
 
@@ -165,19 +244,24 @@
   (async-shell-command (format "bash ~/box/scripts/rider_attach.sh %s" unity-project-dir) "*rider-attach*" nil)
   (open-app-instance "/Applications/Rider.app/Contents/MacOS/rider"))
 
+(defun jetbrains-here (app-name app-path)
+  (let ((buffer-name (format "*%s-here*" app-name)))
+	(kill-buffer-p-if-exists buffer-name)
+	(let ((file buffer-file-name) (line (line-number-at-pos nil)))
+	  (async-shell-command (format "%s --line %d %s" app-path line file) buffer-name nil)))
+  (open-app-instance app-path))
+
 (defun rider-here ()
   (interactive)
-  (kill-buffer-p-if-exists "*rider-here*")
-  (let ((file buffer-file-name) (line (line-number-at-pos nil)))
-	(async-shell-command (format "/Applications/Rider.app/Contents/MacOS/rider --line %d %s" line file) "*rider-here*" nil))
-  (open-app-instance "/Applications/Rider.app/Contents/MacOS/rider"))
+  (jetbrains-here "rider" "/Applications/Rider.app/Contents/MacOS/rider"))
 
-(defun intellij-here ()
+(defun idea-here ()
   (interactive)
-  (kill-buffer-p-if-exists "*intellij-here*")
-  (let ((file buffer-file-name) (line (line-number-at-pos nil)))
-	(async-shell-command (format "\"/Applications/IntelliJ IDEA.app/Contents/MacOS/idea\" --line %d %s" line file) "*intellij-here*" nil))
-  (open-app-instance "\"/Applications/IntelliJ IDEA.app/Contents/MacOS/idea\""))
+  (jetbrains-here "idea" "\"/Applications/IntelliJ IDEA.app/Contents/MacOS/idea\""))
+
+(defun clion-here ()
+  (interactive)
+  (jetbrains-here "clion" "/Applications/CLion.app/Contents/MacOS/clion"))
 
 (defun lldb-create (filename args)
   "Create lldb async shell command"
@@ -258,14 +342,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-enabled-themes '(gruber-darker))
  '(custom-safe-themes
-   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7" default))
+   '("e13beeb34b932f309fb2c360a04a460821ca99fe58f69e65557d6c1b10ba18c7"
+	 default))
  '(display-line-numbers nil)
  '(enable-recursive-minibuffers t)
+ '(imenu-flatten 'annotation)
  '(markdown-command "markdown")
  '(package-selected-packages
-   '(company markdown-mode pyvenv matlab-mode web-mode multiple-cursors magit gruber-darker-theme)))
+   '(company gruber-darker-theme magit markdown-mode matlab-mode
+			 multiple-cursors pyvenv typescript-mode web-mode)))
 
 
 (custom-set-faces
@@ -276,3 +362,5 @@
  )
 (put 'scroll-left 'disabled nil)
 (put 'narrow-to-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
